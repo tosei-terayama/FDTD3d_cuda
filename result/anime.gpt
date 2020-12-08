@@ -1,0 +1,10 @@
+reset
+set pm3d map
+set cbrange [-5.0*10**-7:5.0*10**-7]
+do for[i=0:999]{\
+splot sprintf("ez_%d.dat", i) title sprintf("ez%d",i) with pm3;
+pause 0.005}
+
+
+
+
