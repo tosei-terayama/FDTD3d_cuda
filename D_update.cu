@@ -17,10 +17,15 @@ __global__ void D_update( int Nr, int Nth, int Nph, float *nDr, float *nDth, flo
         int idx_Hth1 = i*((Nth+1)*Nph) + j*Nph + k;
         int idx_Hth2 = i*((Nth+1)*Nph) + j*Nph + k - 1;
 
-        float r_i2 = (float(i)+0.5)*del_r + r0;
+        float r_i2 = dist_d( float(i), del_r, r0 );
+        float si_th1 = std::sin( th_d(float(j)-0.5, del_th, th0) );
+        float si_th2 = std::sin( th_d(float(j), del_th, th0) );
+        float si_th3 = std::sin( th_d(float(j)+0.5, del_th, th0) );
+
+        /*float r_i2 = (float(i)+0.5)*del_r + r0;
         float si_th1 = std::sin(th0 + (float(j)-0.5)*del_th);
         float si_th2 = std::sin(th0 + float(j)*del_th);
-        float si_th3 = std::sin(th0 + (float(j)+0.5)*del_th);
+        float si_th3 = std::sin(th0 + (float(j)+0.5)*del_th);*/
         
         float CDr1 = dt/r_i2/si_th2/del_th;
         float CDr2 = dt/r_i2/si_th2/del_ph;
@@ -37,10 +42,14 @@ __global__ void D_update( int Nr, int Nth, int Nph, float *nDr, float *nDth, flo
         int idx_Hph1 = i*(Nth*(Nph+1)) + j*(Nph+1) + k;
         int idx_Hph2 = (i-1)*(Nth*(Nph+1)) + j*(Nph+1) + k;
 
-        float r_i1 = (float(i)-0.5)*del_r + r0;
+        float r_i1 = dist_d( float(i)-0.5, del_r, r0 );
+        float r_i2 = dist_d( float(i), del_r, r0 );
+        float r_i3 = dist_d( float(i)+0.5, del_r, r0 );
+        float si_th3 = std::sin( th_d(float(j)+0.5, del_th, th0) );
+        /*float r_i1 = (float(i)-0.5)*del_r + r0;
         float r_i2 = float(i)*del_r + r0;
         float r_i3 = (float(i)+0.5)*del_r + r0;
-        float si_th3 = std::sin(th0 + (float(j)+0.5)*del_th);
+        float si_th3 = std::sin(th0 + (float(j)+0.5)*del_th);*/
 
         float CDth1 = dt/r_i2/si_th3/del_ph;
         float CDth2 = dt/r_i2/del_r;
@@ -57,9 +66,12 @@ __global__ void D_update( int Nr, int Nth, int Nph, float *nDr, float *nDth, flo
         int idx_Hr1 = i*(Nth*Nph) + j*Nph + k;
         int idx_Hr2 = i*(Nth*Nph) + (j-1)*Nph + k;
         
-        float r_i1 = (float(i)-0.5)*del_r + r0;
+        float r_i1 = dist_d( float(i)-0.5, del_r, r0 );
+        float r_i2 = dist_d( float(i), del_r, r0 );
+        float r_i3 = dist_d( float(i)+0.5, del_r, r0 );
+        /*float r_i1 = (float(i)-0.5)*del_r + r0;
         float r_i2 = float(i)*del_r + r0;
-        float r_i3 = (float(i)+0.5)*del_r + r0;
+        float r_i3 = (float(i)+0.5)*del_r + r0;*/
 
         float CDph1 = dt/r_i2/del_r;
         float CDph2 = dt/r_i2/del_th;

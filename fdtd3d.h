@@ -48,6 +48,10 @@ inline float dist(float i){return R0 + i*delta_r;};
 inline float th(float j){return THETA0 + j*delta_th;};
 inline float ph(float k){return k*delta_ph;};
 
+__device__ inline float dist_d( float i, float delta_r, float r0 ){ return r0 + i*delta_r; };
+__device__ inline float th_d( float j, float delta_th, float theta0 ){ return theta0 + j*delta_th; };
+__device__ inline float ph_d( float k, float delta_ph ){ return k*delta_ph; };
+
 inline int idx_Er( int i, int j, int k ){ return i*((Nth+1)*(Nph+1)) + j*(Nph+1) + k; }
 inline int idx_Eth( int i, int j, int k ){ return i*(Nth*(Nph+1)) + j*(Nph+1) + k; }
 inline int idx_Eph( int i, int j, int k ){ return i*((Nth+1)*Nph) + j*Nph + k; }

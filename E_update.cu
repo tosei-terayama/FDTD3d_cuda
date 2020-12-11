@@ -13,6 +13,7 @@ __global__ void E_update( int Nr, int Nth, int Nph,
 
     if( ((i >= 0 ) && (i < Nr)) && ((j >= 1) && (j < Nth)) && ((k >= 1) && (k < Nph)) ){
         int idx = i*((Nth+1)*(Nph+1)) + j*(Nph+1) + k;
+        
         Er[idx] = Er[idx]
                 + (nDr[idx] - oDr[idx])/eps;
         

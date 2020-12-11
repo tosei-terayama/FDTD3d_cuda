@@ -15,8 +15,9 @@ float t0, float sig, float r0, int Nr, int Nth, int Nph )
         if( (i == i_s) && (j == j_s) && (k == k_s) ){
                 int idx = i*(Nth*(Nph+1)) + j*(Nph+1) + k;
 
-                float J = -( ( t-t0 )/sig/sig/del_r/(((float(i)+0.5)*del_r+ r0)*del_th)/(((float(i)+0.5)*del_r + r0)*del_ph) )
+                float J = -( ( t-t0 )/sig/sig/del_r/(dist_d(float(i+0.5), del_r, r0)*del_th)/(dist_d(float(i)+0.5, del_r, r0)*del_ph) )
                 * std::exp( -(t-t0)*(t-t0)/2.0/sig/sig);
+
 
                 Eth[idx] = Eth[idx] + J;
         }
